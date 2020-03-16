@@ -1,5 +1,5 @@
 const express = require("express");
-const db = require('db.js');
+const db = require('./data/db');
 const shortid = require("shortid");
 const server = express();
 
