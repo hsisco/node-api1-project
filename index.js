@@ -11,20 +11,20 @@ server.use(express.json());
 
 
 // CREATE
-server.post('/api/users', (req, res) => {
+server.post('/api/users', (req, res, db) => {
   const { name, bio } = req.body;
 
-  if (!name || !bio) {
+  if(!name || !bio){
     res.status(400).json({ errorMessage: "Please provide name and bio for the user." });
-  }
+  } else {
   db.insert(req.body)
   .then(user => res.status(201).json(user))
-  .catch(err => res.status(500).json({ errorMessage: "There was an error while saving the user to the database", success: false, err }))
+  .catch(err => res.status(500).json({ errorMessage: "There was an error while saving the user to the database", success: false, err }))}
 });
 
 
 // READ all users
-server.get('/api/users', (req, res) => {
+server.get('/api/users', (req, res, db) => {
   db.find()
   .then(user => res.status(200).json(user))
   .catch(err => res.status(500).json({ errorMessage: "The users information could not be retrieved", success: false, err }))
